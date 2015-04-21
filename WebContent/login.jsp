@@ -11,7 +11,7 @@
 <script src="STATIC_ASSETS/jquery-2.1.3.min.js"></script>
 <script src="STATIC_ASSETS/dist/semantic.min.js"></script>
 
-<title>ARC Registeration</title>
+<title>ARC Registeration Website</title>
 </head>
 <%Data RegData = new Data(); int cc = RegData.registeredCount(); String as = Integer.toString(cc);%>
 <body>
