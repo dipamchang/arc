@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.bits_pilani.goa.arc.ConnectionManager.DBConnection;
 import com.bits_pilani.goa.arc.Registration.StudentDetailsBean;
@@ -85,6 +86,11 @@ public class StudentData {
 			filter2 += "and Combination != \"deReg\"";
 		else if (rstatus.equals("4"))
 			filter2 += "and Combination = \"deReg\"";
+		else if (rstatus.equals("5")){
+			filter = "";
+			filter2="";
+		}
+			
 		try {
 			Connection con = dbCon.getConnection();
 			String query = "SELECT * FROM student where Id LIKE '%"+filter+"%' " + filter2;
@@ -117,9 +123,60 @@ public class StudentData {
 		return CombDetails;
 	}
 	
+	public void truncateStudentDB(){
+		DBConnection dbCon = new DBConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			Connection con = dbCon.getConnection();
+			String query = "TRUNCATE TABLE student;";
+			pstmt = con.prepareStatement(query);
+			pstmt.execute();
+			pstmt.close();
+			System.out.println("DB Truncate successful");
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			//e.printStackTrace();
+			System.out.println("DB Exception catch in truncating student DB");
+		}
+		finally{
+			try {
+				dbCon.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public int insertStudentData(String id, String name, String passs){
+		DBConnection dbCon = new DBConnection();
+		PreparedStatement pstmt = null;
+		
+		int rs = 0;
+		try {
+			Connection con = dbCon.getConnection();
+			String query = "INSERT INTO student (`Id`, `Name`, `Password`, `Combination`) VALUES (?,?,"+passs+",'not');" ;
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			rs = pstmt.executeUpdate();
+			pstmt.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB Exception catch, while entering student data");
+		}
+		finally{
+			try {
+				dbCon.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return rs;
+	}
 	
 
-	
 	
 
 }

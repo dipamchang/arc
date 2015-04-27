@@ -18,5 +18,8 @@
 	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/google-gson-2.2.4-release/google-gson-2.2.4/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/google-gson-2.2.4-release/google-gson-2.2.4/gson-2.2.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/google-gson-2.2.4-release/google-gson-2.2.4/gson-2.2.4-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/poi-bin-3.12-beta1-20150228/poi-3.12-beta1/poi-3.12-beta1-20150228.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/commons-fileupload-1.3.1-bin/commons-fileupload-1.3.1-bin/lib/commons-fileupload-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dipamchang/Downloads/commons-io-2.4-bin/commons-io-2.4/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -23,7 +23,7 @@ public class TimeTable {
 		List<TTInfo> result = new ArrayList<TTInfo>();
 		try {
 			Connection con = dbCon.getConnection();
-			
+
 			String query = "SELECT DISTINCT Subject,Catalog_No, Course_Title, Section  FROM timetable where Combination LIKE ?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "%,"+combination+",%");
@@ -41,7 +41,7 @@ public class TimeTable {
 			System.out.println("Username not found");
 		}
 		finally{
-			
+
 			try {
 				dbCon.closeConnection();
 			} catch (SQLException e) {
@@ -50,18 +50,18 @@ public class TimeTable {
 		}
 		return result;
 	}
-	
+
 	public List<sixbynineBean> getsixbynine(String combName) {
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
-		 java.sql.Statement stmt = null;
+		java.sql.Statement stmt = null;
 		String password = null;
 		ResultSet rs = null;
 		ResultSet rs1 = null;
 		List<sixbynineBean> result = new ArrayList<sixbynineBean>();
 		try {
 			Connection con = dbCon.getConnectionOther();
-			
+
 			String query = "SELECT id FROM timetable_timetable where card_number = '"+combName+"'";
 			//pstmt = con.prepareStatement(query);
 			//pstmt.setString(1, "%,"+combination+",%");
@@ -75,7 +75,7 @@ public class TimeTable {
 			rs1 = pstmt.executeQuery();
 			String htmlData = ""; 
 			String mon,tue,wed,thu,fri,sat;
-			
+
 			while(rs1.next()){
 				java.sql.Time st = rs1.getTime("start_time");
 				java.sql.Time et = rs1.getTime("end_time");
@@ -94,7 +94,7 @@ public class TimeTable {
 					inst1.setId(id1);
 					result.add(inst1);
 				}
-				
+
 				System.out.println(id);
 				System.out.println(content);
 				result.add(inst);
@@ -104,7 +104,7 @@ public class TimeTable {
 			System.out.println("Username not found");
 		}
 		finally{
-			
+
 			try {
 				dbCon.closeConnection();
 			} catch (SQLException e) {
@@ -112,11 +112,79 @@ public class TimeTable {
 			}
 		}
 		return result;
-		
+
 	}
-	
-//	public static void main(String[] args) {
-//		TimeTable as = new TimeTable();
-//		as.getsixbynine("R_WS_A_1");
-//	}
+	//SELECT DISTINCT class_nbr FROM `timetable_timetable_schedules`  LEFT JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = 1 
+	//	public static void main(String[] args) {
+	//		TimeTable as = new TimeTable();
+	//		as.getsixbynine("R_WS_A_1");
+	//	}
+
+
+	public List<Integer> getClassNumbers(String combName) {
+		DBConnection dbCon = new DBConnection();
+		PreparedStatement pstmt = null;
+		java.sql.Statement stmt = null;
+		String password = null;
+		ResultSet rs = null;
+		ResultSet rs1 = null;
+		List<Integer> result = new ArrayList<Integer>();
+		try {
+			Connection con = dbCon.getConnectionOther();
+			String query = "SELECT id FROM timetable_timetable where card_number = '"+combName+"'";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+			rs.next();
+			int idd = rs.getInt("id");
+			String query1 = "SELECT DISTINCT class_nbr FROM `timetable_timetable_schedules`  LEFT JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ?";
+			pstmt = con.prepareStatement(query1);
+			pstmt.setInt(1,idd);
+			rs1 = pstmt.executeQuery();
+			while(rs1.next()){
+				result.add(rs1.getInt(1));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			System.out.println("Class number extraction issue.");
+		}
+		finally{
+			try {
+				dbCon.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

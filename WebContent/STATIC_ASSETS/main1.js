@@ -228,6 +228,17 @@ function updateCombData(combname){
 }
 
 
+function downloadData(){
+	$('#downloadSegment').addClass("loading");
+	$.ajax({ type: 'GET', url: '/arc/DownloadData', success: function(response){
+		$('#downloadSegment').removeClass("loading");
+		window.location.href = "/arc/"+response;
+		} });
+}
+
+function generatePass(){
+	
+}
 
 
 //
