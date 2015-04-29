@@ -37,22 +37,27 @@ public class UploadDownloadLogic {
 			HSSFSheet sheet = wb.createSheet("Registration Data");
 			HSSFRow rowhead = sheet.createRow(0);
 			rowhead.createCell(0).setCellValue("Class No");
-			rowhead.createCell(1).setCellValue("ID No");
-			rowhead.createCell(2).setCellValue("Name");
-			rowhead.createCell(3).setCellValue("Card No");
-			rowhead.createCell(4).setCellValue("Time Stamp");
+			rowhead.createCell(1).setCellValue("Course Id");
+			rowhead.createCell(2).setCellValue("Section");
+			rowhead.createCell(3).setCellValue("ID No");
+			rowhead.createCell(4).setCellValue("Name");
+			rowhead.createCell(5).setCellValue("Card No");
+			rowhead.createCell(6).setCellValue("Time Stamp");
+
 
 			int rowCount = 1;
 			for (StudentDetailsBean studentDetailsBean : allRegData) {
 				if(studentDetailsBean.getCombination() != "deReg" || studentDetailsBean.getCombination() != "not"){
-					List<Integer> classNolist = (new TimeTable()).getClassNumbers(studentDetailsBean.getCombination());
-					for (Integer clasNo : classNolist) {
+					List<ClassNumberDataBean> classNolist = (new TimeTable()).getClassNumbers(studentDetailsBean.getCombination());
+					for (ClassNumberDataBean clasNo : classNolist) {
 						HSSFRow row=   sheet.createRow(rowCount++);
-						row.createCell(0).setCellValue(clasNo);
-						row.createCell(1).setCellValue(studentDetailsBean.getStudentId());
-						row.createCell(2).setCellValue(studentDetailsBean.getStudentName());
-						row.createCell(3).setCellValue(studentDetailsBean.getCombination());
-						row.createCell(4).setCellValue(studentDetailsBean.getTimestamp());
+						row.createCell(0).setCellValue(clasNo.getClass_nbr());
+						row.createCell(1).setCellValue(clasNo.getCourse_Id());
+						row.createCell(2).setCellValue(clasNo.getSection());
+						row.createCell(3).setCellValue(studentDetailsBean.getStudentId());
+						row.createCell(4).setCellValue(studentDetailsBean.getStudentName());
+						row.createCell(5).setCellValue(studentDetailsBean.getCombination());
+						row.createCell(6).setCellValue(studentDetailsBean.getTimestamp());
 					}
 				}
 			}

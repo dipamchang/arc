@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bits_pilani.goa.arc.ConnectionManager.DBConnection;
+import com.bits_pilani.goa.arc.Registration.ClassNumberDataBean;
 import com.bits_pilani.goa.arc.Registration.TTInfo;
 import com.bits_pilani.goa.arc.Registration.sixbynineBean;
 import com.mysql.jdbc.Statement;
@@ -127,14 +128,14 @@ public class TimeTable {
 	//	}
 
 
-	public List<Integer> getClassNumbers(String combName) {
+	public List<ClassNumberDataBean> getClassNumbers(String combName) {
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
 		java.sql.Statement stmt = null;
 		String password = null;
 		ResultSet rs = null;
 		ResultSet rs1 = null;
-		List<Integer> result = new ArrayList<Integer>();
+		List<ClassNumberDataBean> result = new ArrayList<ClassNumberDataBean>();
 		try {
 			Connection con = dbCon.getConnectionOther();
 			String query = "SELECT id FROM timetable_timetable where card_number = '"+combName+"'";
@@ -142,12 +143,16 @@ public class TimeTable {
 			rs = stmt.executeQuery(query);
 			rs.next();
 			int idd = rs.getInt("id");
-			String query1 = "SELECT DISTINCT class_nbr FROM `timetable_timetable_schedules` JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ?";
+			String query1 = "SELECT DISTINCT class_nbr, section, course_id FROM `timetable_timetable_schedules` JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ?";
 			pstmt = con.prepareStatement(query1);
 			pstmt.setInt(1,idd);
 			rs1 = pstmt.executeQuery();
 			while(rs1.next()){
-				result.add(rs1.getInt(1));
+				ClassNumberDataBean clsData = new ClassNumberDataBean();
+				clsData.setClass_nbr(rs1.getInt(1));
+				clsData.setCourse_Id(rs1.getString("course_id"));
+				clsData.setSection(rs1.getString("section"));
+				result.add(clsData);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
