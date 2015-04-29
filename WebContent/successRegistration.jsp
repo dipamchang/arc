@@ -56,7 +56,6 @@
 <script src="STATIC_ASSETS/main1.js"></script>
 <script type="text/javascript">
 	var delay = 10000; //Your delay in milliseconds
-	sendTheMail(co);
 	setTimeout(function() {
 		window.location = "/arc/login.jsp";
 	}, delay);
