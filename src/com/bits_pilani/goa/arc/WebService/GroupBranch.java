@@ -8,24 +8,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bits_pilani.goa.arc.Dao.Data;
+import com.bits_pilani.goa.arc.Dao.Combinations;
 
 /**
- * Servlet implementation class RegData
+ * Servlet implementation class GroupBranch
  */
 /**
  * 
  * @author dipamchang
  * @email dipamchang@gmail.com
  */
-@WebServlet("/RegData")
-public class RegData extends HttpServlet {
+@WebServlet("/GroupBranch")
+public class GroupBranch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RegData() {
+	public GroupBranch() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,13 +42,24 @@ public class RegData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Data RegData = new Data();
-		int cc = RegData.registeredCount();
-		String as = Integer.toString(cc);
+
+		Combinations branchgroup = new Combinations();
+		branchgroup.truncateGroupBranchTable();
+
+		String[] eglist = request.getParameter("egbranches").split(",");
+		String[] wslist = request.getParameter("wsbranches").split(",");
+
+		for (String string : wslist) {
+			branchgroup.insertGroupInfo("WS", string.trim());	
+		}
+
+		for (String string : eglist) {
+			branchgroup.insertGroupInfo("EG", string.trim());
+		}
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println(cc);
-		response.getWriter().write(as);
+		response.getWriter().write("<p>Saved</p>");
 	}
 
 }

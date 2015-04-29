@@ -13,17 +13,22 @@ import com.bits_pilani.goa.arc.Dao.Combinations;
 /**
  * Servlet implementation class UpdateCombinationDetails
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/UpdateCombinationDetails")
 public class UpdateCombinationDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateCombinationDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UpdateCombinationDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,7 +47,7 @@ public class UpdateCombinationDetails extends HttpServlet {
 		Combinations combOperation = new Combinations();
 		int result = combOperation.updateSeatCapacity(combName, Integer.parseInt(newCapacity));
 		System.out.println(result);
-		
+
 	}
 
 }

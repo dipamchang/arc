@@ -15,6 +15,12 @@ import com.bits_pilani.goa.arc.Registration.CombinationInfoBean;
 /**
  * Servlet implementation class CapacityDetails
  */
+
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/CapacityDetails")
 public class CapacityDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,9 +58,9 @@ public class CapacityDetails extends HttpServlet {
 		//		<td>23</td>
 		//	</tr>
 		String htmlData = "<table class=\"ui celled table\"><thead><tr>"+
-							"<th class=\"three wide\">Card Name</th>"+
-							"<th class=\"two wide\">Maximum Seats</th>"+
-							"<th class=\"two wide\">Remaining Seats</th><th class=\"two wide\">Save</th></tr></thead><tbody>";
+				"<th class=\"three wide\">Card Name</th>"+
+				"<th class=\"two wide\">Maximum Seats</th>"+
+				"<th class=\"two wide\">Remaining Seats</th><th class=\"two wide\">Save</th></tr></thead><tbody>";
 		for (CombinationInfoBean combinationInfoBean : entireCombDetails) {
 			if(combinationInfoBean.getFull_seats() <= 0)
 				htmlData += "<tr class=\"negative\">";
@@ -68,8 +74,6 @@ public class CapacityDetails extends HttpServlet {
 			htmlData += "<td><div id=\""+combinationInfoBean.getCardName()+"\" class=\"ui basic blue icon button\" onclick=\"updateCombData('"+combinationInfoBean.getCardName()+"')\"><i class=\"save icon\"></i></div></td></tr>";
 		}
 		htmlData += "</tbody></table>";
-
-
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(htmlData);

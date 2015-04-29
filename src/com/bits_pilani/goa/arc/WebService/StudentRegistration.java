@@ -16,17 +16,22 @@ import com.bits_pilani.goa.arc.Dao.StudentData;
 /**
  * Servlet implementation class StudentRegistration
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/StudentRegistration")
 public class StudentRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public StudentRegistration() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public StudentRegistration() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,40 +55,38 @@ public class StudentRegistration extends HttpServlet {
 			System.out.println("Current Avail = " + asd);
 			if(asd==0){
 				//Not OK
-				 response.setContentType("text/plain");
-				 response.setCharacterEncoding("UTF-8");
-				 response.getWriter().write("NOK");
-				 System.out.println("NOK asd = 0 " );
-				 return;
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("NOK");
+				System.out.println("NOK asd = 0 " );
+				return;
 			}else if (asd == 1){
-				
+
 				StudentData ast = new StudentData();
 				HttpSession sess = request.getSession();  String id = (String)sess.getAttribute("LOGIN_USER"); 
 				int res = ast.doRegister(comb, id);
 				if(res == 1){
-					 response.setContentType("text/plain");
-					 response.setCharacterEncoding("UTF-8");
-					 response.getWriter().write("OK");
-					 System.out.println("OK asd = 1 " );
-					 return;
+					response.setContentType("text/plain");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write("OK");
+					System.out.println("OK asd = 1 " );
+					return;
 				}else {
 					response.setContentType("text/plain");
-					 response.setCharacterEncoding("UTF-8");
-					 response.getWriter().write("NOK");
-					 System.out.println("NOK  " + cList.get(comb) );
-					 return;
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write("NOK");
+					System.out.println("NOK  " + cList.get(comb) );
+					return;
 				}
 			}
 		}
 		else {
 			//Not Ok
 			response.setContentType("text/plain");
-			 response.setCharacterEncoding("UTF-8");
-			 response.getWriter().write("NOK");
-			 System.out.println("NOK  " + cList.get(comb) );
-			 return;
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("NOK");
+			System.out.println("NOK  " + cList.get(comb) );
+			return;
 		}
-	
 	}
-
 }

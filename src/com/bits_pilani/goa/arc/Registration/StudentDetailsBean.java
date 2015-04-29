@@ -1,13 +1,16 @@
 package com.bits_pilani.goa.arc.Registration;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class StudentDetailsBean {
 	private String studentId;
 	private String studentName;
 	private String combination;
 	private String timestamp;
 	private String passowrd;
-	
-	
+
 	public String getStudentId() {
 		return studentId;
 	}
@@ -38,7 +41,5 @@ public class StudentDetailsBean {
 	public void setPassowrd(String passowrd) {
 		this.passowrd = passowrd;
 	}
-	
-	
-	
+
 }

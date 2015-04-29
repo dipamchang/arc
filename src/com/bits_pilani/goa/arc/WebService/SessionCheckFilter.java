@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Filter implementation class SessionCheckFilter
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 //@WebFilter("/SessionCheckFilter")
 public class SessionCheckFilter implements Filter {
 

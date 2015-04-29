@@ -17,14 +17,19 @@ import org.apache.poi.ss.usermodel.Row;
 import com.bits_pilani.goa.arc.Dao.Data;
 import com.bits_pilani.goa.arc.Dao.StudentData;
 import com.bits_pilani.goa.arc.Dao.TimeTable;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class UploadDownloadLogic {
+	public String basic_path = "/opt/tomcat/webapps/arc/admin_panel/";
 
 	public String generateexcelStudentReg(){
 		StudentData getData = new StudentData();
 		List<StudentDetailsBean> allRegData = getData.getAllRegData("", "5");
-		String filename="C:\\Users\\dipamchang\\workspaceARC\\arc\\RegData_"+System.currentTimeMillis()+".xls" ;
-
+		String filename = "RegData_"+System.currentTimeMillis()+".xls" ;
+		String fullPathName=basic_path+filename ;
 
 		try{
 
@@ -36,7 +41,6 @@ public class UploadDownloadLogic {
 			rowhead.createCell(2).setCellValue("Name");
 			rowhead.createCell(3).setCellValue("Card No");
 			rowhead.createCell(4).setCellValue("Time Stamp");
-
 
 			int rowCount = 1;
 			for (StudentDetailsBean studentDetailsBean : allRegData) {
@@ -53,28 +57,23 @@ public class UploadDownloadLogic {
 				}
 			}
 
-
-			FileOutputStream fileOut =  new FileOutputStream(filename);
+			FileOutputStream fileOut =  new FileOutputStream(fullPathName);
 			wb.write(fileOut);
 			fileOut.close();
-
 			System.out.println("Your excel file has been generated!");
-
 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-
-
 		return filename;
-
 	}
 
 	public String populateStudentData(String filepath){
-		String StudentDatafilename="C:\\Users\\dipamchang\\workspaceARC\\arc\\StudentData_"+System.currentTimeMillis()+".xls" ;
+		String filename = "StudentData_"+System.currentTimeMillis()+".xls";
+		String StudentDatafilename=basic_path+filename ;
 
 		try {
-			
+
 			//Creating new excel
 			HSSFWorkbook wb = new HSSFWorkbook();
 			HSSFSheet sheet = wb.createSheet("Student Password");
@@ -82,17 +81,11 @@ public class UploadDownloadLogic {
 			rowhead.createCell(0).setCellValue("ID");
 			rowhead.createCell(1).setCellValue("Name");
 			rowhead.createCell(2).setCellValue("Password");
-			
-			
-			
-			
-			
-			
-			
+
 			FileInputStream fileInputStream = new FileInputStream(filepath);
 			HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
 			HSSFSheet worksheet = workbook.getSheetAt(0);
-			
+
 			Iterator<Row> rowIterator = worksheet.iterator();
 			rowIterator.next();
 			StudentData stuData = new StudentData();
@@ -104,32 +97,26 @@ public class UploadDownloadLogic {
 				String name = row.getCell(1).getStringCellValue();
 				String passs = Integer.toString(sixDigitPass());
 				stuData.insertStudentData(id, name, passs);
-				
+
 				HSSFRow erow = sheet.createRow(rowCount++);
 				erow.createCell(0).setCellValue(id);
 				erow.createCell(1).setCellValue(name);
 				erow.createCell(2).setCellValue(passs);
-				
-				
 			}
 			workbook.close();
 			fileInputStream.close();
-			
-			
+
 			FileOutputStream fileOut =  new FileOutputStream(StudentDatafilename);
 			wb.write(fileOut);
 			fileOut.close();
 			wb.close();
-			
-			
-			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return StudentDatafilename;
+		return filename;
 
 	}
 
@@ -139,10 +126,8 @@ public class UploadDownloadLogic {
 		return n;
 	}
 
-
 	public static void main(String[] args) {
 		UploadDownloadLogic asdf = new UploadDownloadLogic();
 		asdf.generateexcelStudentReg();
 	}
-
 }

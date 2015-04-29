@@ -11,7 +11,11 @@ import java.util.Random;
 import com.bits_pilani.goa.arc.ConnectionManager.DBConnection;
 import com.bits_pilani.goa.arc.Registration.StudentDetailsBean;
 import com.bits_pilani.goa.arc.WebService.SRegistrationDetails;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class StudentData {
 
 	public String ifRegistered(String id){
@@ -28,7 +32,7 @@ public class StudentData {
 			combi = rs.getString("Combination");
 			rs.close();
 			pstmt.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			//e.printStackTrace();
 			System.out.println("DB Exception catch");
@@ -43,7 +47,7 @@ public class StudentData {
 		return combi;
 
 	}
-	
+
 	public int doRegister(String comb, String id){
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
@@ -56,7 +60,7 @@ public class StudentData {
 			pstmt.setString(2, id);
 			rs = pstmt.executeUpdate();
 			pstmt.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			//e.printStackTrace();
 			System.out.println("DB Exception catch");
@@ -70,8 +74,8 @@ public class StudentData {
 		}
 		return rs;
 	}
-	
-	
+
+
 	public List<StudentDetailsBean> getAllRegData(String filter, String rstatus){
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
@@ -90,7 +94,7 @@ public class StudentData {
 			filter = "";
 			filter2="";
 		}
-			
+
 		try {
 			Connection con = dbCon.getConnection();
 			String query = "SELECT * FROM student where Id LIKE '%"+filter+"%' " + filter2;
@@ -106,14 +110,14 @@ public class StudentData {
 				beanInstance.setStudentName(rs.getString("Name"));
 				beanInstance.setTimestamp(rs.getString("timestamp"));
 				CombDetails.add(beanInstance);
-				
+
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL Error in combination Information retrieval");
 		}
 		finally{
-			
+
 			try {
 				dbCon.closeConnection();
 			} catch (SQLException e) {
@@ -122,11 +126,11 @@ public class StudentData {
 		}
 		return CombDetails;
 	}
-	
+
 	public void truncateStudentDB(){
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			Connection con = dbCon.getConnection();
 			String query = "TRUNCATE TABLE student;";
@@ -134,7 +138,7 @@ public class StudentData {
 			pstmt.execute();
 			pstmt.close();
 			System.out.println("DB Truncate successful");
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			//e.printStackTrace();
 			System.out.println("DB Exception catch in truncating student DB");
@@ -147,11 +151,11 @@ public class StudentData {
 			}
 		}
 	}
-	
+
 	public int insertStudentData(String id, String name, String passs){
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
-		
+
 		int rs = 0;
 		try {
 			Connection con = dbCon.getConnection();
@@ -161,7 +165,7 @@ public class StudentData {
 			pstmt.setString(2, name);
 			rs = pstmt.executeUpdate();
 			pstmt.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			System.out.println("DB Exception catch, while entering student data");
@@ -175,8 +179,4 @@ public class StudentData {
 		}
 		return rs;
 	}
-	
-
-	
-
 }

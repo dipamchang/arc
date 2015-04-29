@@ -16,17 +16,22 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class SixByNineData
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/SixByNineData")
 public class SixByNineData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SixByNineData() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SixByNineData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

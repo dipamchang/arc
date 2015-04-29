@@ -6,9 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.bits_pilani.goa.arc.ConnectionManager.DBConnection;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class Credentials {
-	
+
 	public String getPassword(String username){
 		DBConnection dbCon = new DBConnection();
 		PreparedStatement pstmt = null;
@@ -25,13 +29,13 @@ public class Credentials {
 			name = rs.getString("Name");
 			rs.close();
 			pstmt.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			//e.printStackTrace();
 			System.out.println("Username not found");
 		}
 		finally{
-			
+
 			try {
 				dbCon.closeConnection();
 			} catch (SQLException e) {
@@ -39,12 +43,12 @@ public class Credentials {
 			}
 		}
 		return password+","+name;
-		
+
 	}
-	
-//	public static void main(String[] args) {
-//		Credentials asd = new Credentials();
-//		System.out.println(asd.getPassword("2011wC6PS610G"));
-//	}
+
+	//	public static void main(String[] args) {
+	//		Credentials asd = new Credentials();
+	//		System.out.println(asd.getPassword("2011wC6PS610G"));
+	//	}
 
 }

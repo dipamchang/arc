@@ -1,8 +1,15 @@
 package com.bits_pilani.goa.arc.Registration;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class TTInfo {
-	
+
 	String CourseId;
+	String CourseTitle;
+	String Sectiom;
+
 	public String getCourseId() {
 		return CourseId;
 	}
@@ -21,7 +28,5 @@ public class TTInfo {
 	public void setSectiom(String sectiom) {
 		Sectiom = sectiom;
 	}
-	String CourseTitle;
-	String Sectiom;
 
 }

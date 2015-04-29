@@ -22,16 +22,20 @@ import com.bits_pilani.goa.arc.Registration.UploadDownloadLogic;
 /**
  * Servlet implementation class DownloadData
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/DownloadData")
 public class DownloadData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
-    private ServletFileUpload uploader = null;
+
+	private ServletFileUpload uploader = null;
 	@Override
 	public void init() throws ServletException{
 		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
-		File filesDir = new File("C:\\Users\\dipamchang\\workspaceARC\\arc");
+		File filesDir = new File("/opt/tomcat/webapps/arc/admin_panel/");
 		fileFactory.setRepository(filesDir);
 		this.uploader = new ServletFileUpload(fileFactory);
 	}
@@ -61,13 +65,14 @@ public class DownloadData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String basic_path = "/opt/tomcat/webapps/arc/admin_panel/";
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
 
-//		response.setContentType("text/html");
-//		PrintWriter out = response.getWriter();
-//		out.write("<html><head></head><body>");
+		//		response.setContentType("text/html");
+		//		PrintWriter out = response.getWriter();
+		//		out.write("<html><head></head><body>");
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
 			Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
@@ -78,16 +83,16 @@ public class DownloadData extends HttpServlet {
 				System.out.println("ContentType="+fileItem.getContentType());
 				System.out.println("Size in bytes="+fileItem.getSize());
 
-				File file = new File("C:\\Users\\dipamchang\\workspaceARC\\arc"+File.separator+fileItem.getName());
+				File file = new File(basic_path+fileItem.getName());
 				System.out.println("Absolute Path at server="+file.getAbsolutePath());
 				fileItem.write(file);
-//				out.write("File "+fileItem.getName()+ " uploaded successfully.");
-//				out.write("<br>");
-//				out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
+				//				out.write("File "+fileItem.getName()+ " uploaded successfully.");
+				//				out.write("<br>");
+				//				out.write("<a href=\"UploadDownloadFileServlet?fileName="+fileItem.getName()+"\">Download "+fileItem.getName()+"</a>");
 				request.setAttribute("message", "File Uploaded Successfully");
 				UploadDownloadLogic data = new UploadDownloadLogic();
 				String studentDataPath = data.populateStudentData(file.getAbsolutePath());
-				request.setAttribute("passlink", "<a href=\""+studentDataPath+"\" target=\"_blank\">Click to download Password file</a>");
+				request.setAttribute("passlink", "<a href=\"admin_panel/"+studentDataPath+"\" target=\"_blank\">Click to download Password file</a>");
 			}
 		} catch (FileUploadException e) {
 			System.out.println("Exception in uploading file." + e);
@@ -96,8 +101,8 @@ public class DownloadData extends HttpServlet {
 			System.out.println("Exception in uploading file." + e);
 			request.setAttribute("message", "File Upload Failed due to " + e);
 		}
-//		out.write("</body></html>");
-		 request.getRequestDispatcher("/admin_panel/uploadDownload.jsp").forward(request, response);
+		//		out.write("</body></html>");
+		request.getRequestDispatcher("/admin_panel/uploadDownload.jsp").forward(request, response);
 	}
 
 }

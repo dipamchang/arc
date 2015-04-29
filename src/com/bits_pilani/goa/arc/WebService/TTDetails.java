@@ -15,17 +15,22 @@ import com.bits_pilani.goa.arc.Registration.TTInfo;
 /**
  * Servlet implementation class TTDetails
  */
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 @WebServlet("/TTDetails")
 public class TTDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TTDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public TTDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,11 +44,11 @@ public class TTDetails extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		String combination = request.getParameter("comb");
 		TimeTable ttinfo = new TimeTable();
 		List<TTInfo> result = ttinfo.getTtInfo(combination);
-		
+
 		/*<table class="ui very padded table">
   <thead>
     <tr>
@@ -76,10 +81,10 @@ public class TTDetails extends HttpServlet {
   </tbody>
 </table>
 		 * */
-		
-		
+
+
 		String table = "<table class=\"ui padded table\"> <thead>   <tr>   <th>Course No.</th>   <th>Course name</th> <th>Section No.</th>   </tr>  </thead>  <tbody>";
-		
+
 		for (TTInfo ttInfo2 : result) {
 			table += "<tr>";
 			table += "<td>"+ ttInfo2.getCourseId() + "</td>";
@@ -88,10 +93,10 @@ public class TTDetails extends HttpServlet {
 			table += "</tr>";
 		}
 		table +="  </tbody></table>"; 
-		 response.setContentType("text/plain");
-		 response.setCharacterEncoding("UTF-8");
-		 response.getWriter().write(table);
-		
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(table);
+
 	}
 
 }

@@ -13,7 +13,11 @@ import com.bits_pilani.goa.arc.ConnectionManager.DBConnection;
 import com.bits_pilani.goa.arc.Registration.TTInfo;
 import com.bits_pilani.goa.arc.Registration.sixbynineBean;
 import com.mysql.jdbc.Statement;
-
+/**
+ * 
+ * @author dipamchang
+ * @email dipamchang@gmail.com
+ */
 public class TimeTable {
 	public List<TTInfo> getTtInfo(String combination){
 		DBConnection dbCon = new DBConnection();
@@ -69,7 +73,7 @@ public class TimeTable {
 			rs = stmt.executeQuery(query);
 			rs.next();
 			int idd = rs.getInt("id");
-			String query1 = "SELECT * FROM `timetable_timetable_schedules`  LEFT JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ? LEFT JOIN timetable_timing ON timetable_timetable_schedules.schedule_id = timetable_timing.schedule_id ORDER BY start_time";
+			String query1 = "SELECT * FROM `timetable_timetable_schedules` JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ? LEFT JOIN timetable_timing ON timetable_timetable_schedules.schedule_id = timetable_timing.schedule_id ORDER BY start_time";
 			pstmt = con.prepareStatement(query1);
 			pstmt.setInt(1,idd);
 			rs1 = pstmt.executeQuery();
@@ -81,7 +85,8 @@ public class TimeTable {
 				java.sql.Time et = rs1.getTime("end_time");
 				sixbynineBean inst = new sixbynineBean();
 				String id = rs1.getString("day_of_week") + ""+ st.getHours();
-				String content = rs1.getString("course_id") + " " + rs1.getString("section") + " " + rs1.getString("location");
+				//String content = "<a class=\"ui tiny blue label\">"+rs1.getString("course_id") + "</a><a class=\"ui green label\">" + rs1.getString("section") + "</a><a class=\"ui purple label\"> " + rs1.getString("location")+"</a>";
+				String content = "<a class=\"ui tiny blue label\">"+rs1.getString("course_id") + "</a><div class=\"ui fitted hidden divider\"></div><a class=\"ui tiny green label\">" + rs1.getString("section") + "</a><a class=\"ui tiny orange label\"> "+ rs1.getString("location")+"</a>";
 				inst.setContent(content);
 				inst.setId(id);
 				int diff = et.getHours() - st.getHours();
@@ -89,7 +94,8 @@ public class TimeTable {
 					sixbynineBean inst1 = new sixbynineBean();
 					int increment = st.getHours()+1;
 					String id1 =  rs1.getString("day_of_week") + ""+ increment;
-					String content1 = rs1.getString("course_id") + " " + rs1.getString("section") + " " + rs1.getString("location");
+					//String content1 = "<a class=\"ui blue label\">"+rs1.getString("course_id") + "</a><a class=\"ui green label\">" + rs1.getString("section") + "</a><a class=\"ui purple label\"> " + rs1.getString("location")+"</a>";
+					String content1 = "<a class=\"ui tiny blue label\">"+rs1.getString("course_id") + "</a><div class=\"ui fitted hidden divider\"></div><a class=\"ui tiny green label\">" + rs1.getString("section") + "</a><a class=\"ui tiny orange label\"> "+ rs1.getString("location")+"</a>";
 					inst1.setContent(content1);
 					inst1.setId(id1);
 					result.add(inst1);
@@ -136,7 +142,7 @@ public class TimeTable {
 			rs = stmt.executeQuery(query);
 			rs.next();
 			int idd = rs.getInt("id");
-			String query1 = "SELECT DISTINCT class_nbr FROM `timetable_timetable_schedules`  LEFT JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ?";
+			String query1 = "SELECT DISTINCT class_nbr FROM `timetable_timetable_schedules` JOIN timetable_schedule ON timetable_timetable_schedules.schedule_id = timetable_schedule.id and timetable_id = ?";
 			pstmt = con.prepareStatement(query1);
 			pstmt.setInt(1,idd);
 			rs1 = pstmt.executeQuery();
@@ -156,35 +162,4 @@ public class TimeTable {
 		}
 		return result;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
