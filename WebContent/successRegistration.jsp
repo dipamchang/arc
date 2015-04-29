@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="author" content="Dipam Changede">
+<meta name="contact" content="dipamchang@gmail.com">
+
 <link rel="stylesheet" type="text/css"
 	href="STATIC_ASSETS/dist/semantic.min.css">
 <script src="STATIC_ASSETS/jquery-2.1.3.min.js"></script>

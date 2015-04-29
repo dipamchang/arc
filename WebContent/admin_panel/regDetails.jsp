@@ -9,79 +9,76 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="author" content="Dipam Changede">
+<meta name="contact" content="dipamchang@gmail.com">
 
-<!-- Site Properities -->
 <title>Admin Panel - Registration Details</title>
-
-<!--   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" type="text/css"
 	href="/arc/STATIC_ASSETS/dist/semantic.min.css">
 <script src="/arc/STATIC_ASSETS/jquery-2.1.3.min.js"></script>
-<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script> -->
 <script src="/arc/STATIC_ASSETS/dist/semantic.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css"	href="STATIC_ASSETS/dist/feed.css"> -->
 <script src="/arc/STATIC_ASSETS/dist/feed.js"></script>
-<!-- <script src="STATIC_ASSETS/mandrill.js"></script> -->
 <script src="/arc/STATIC_ASSETS/main1.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-$('#studentRegDetails')
-.form({
-	studentId: {
-		identifier  : 'studentId',
-		rules: [
-		        {
-		        	type   : 'empty',
-		        	prompt : 'Please enter StudentId or wildcard text'
-		        }
-		        ]
-	},
-	regStatus: {
-		identifier  : 'regStatus',
-		rules: [
-		        {
-		        	type   : 'empty',
-		        	prompt : 'Please select a registration Status'
-		        }
-		        ]
+	$(document).ready(function() {
+		$('#studentRegDetails').form({
+			studentId : {
+				identifier : 'studentId',
+				rules : [ {
+					type : 'empty',
+					prompt : 'Please enter StudentId or wildcard text'
+				} ]
+			},
+			regStatus : {
+				identifier : 'regStatus',
+				rules : [ {
+					type : 'empty',
+					prompt : 'Please select a registration Status'
+				} ]
+			}
+		}, {
+			inline : true,
+			on : 'blur',
+			transition : 'fade down',
+			onSuccess : RegValidationPassed
+		});
+
+	});
+
+	function RegGetFieldValue(fieldId) {
+		// 'get field' is part of Semantics form behavior API
+		return $('#studentRegDetails').form('get field', fieldId).val().trim();
 	}
-}, {
-	inline : true,
-	on     : 'blur',
-	transition : 'fade down',
-	onSuccess : RegValidationPassed
-})
-;
+	function RegValidationPassed() {
+		$('#searchButton').addClass("loading");
+		var formData1 = {
+			studentId : RegGetFieldValue('studentId'),
+			regStatus : RegGetFieldValue('regStatus')
+		};
+		$.ajax({
+			type : 'POST',
+			url : '/arc/SRegistrationDetails',
+			data : formData1,
+			success : regFilterPosted
+		});
+	}
 
+	function regFilterPosted(response) {
+		$('#ajaxRegDetails').html(response);
+		$('#searchButton').removeClass("loading");
+	}
 
-
-
-
-});
-
-function RegGetFieldValue(fieldId) { 
-    // 'get field' is part of Semantics form behavior API
-    return $('#studentRegDetails').form('get field', fieldId).val().trim();
- }
-function RegValidationPassed(){
-	$('#searchButton').addClass("loading");
-	 var formData1 = {
-			 studentId : RegGetFieldValue('studentId'), regStatus: RegGetFieldValue('regStatus') 
-	      };
-	 $.ajax({ type: 'POST', url: '/arc/SRegistrationDetails', data: formData1, success: regFilterPosted });
-}
-
-function regFilterPosted(response){
-	$('#ajaxRegDetails').html(response);
-	$('#searchButton').removeClass("loading");
-}
-
-function deRegisterStudent(studentId1){
-	var dd = { studentId : studentId1 };
-	 $.ajax({ type: 'POST', url: '/arc/DeRegister', data: dd, success: RegValidationPassed });
-}
-
-
+	function deRegisterStudent(studentId1) {
+		var dd = {
+			studentId : studentId1
+		};
+		$.ajax({
+			type : 'POST',
+			url : '/arc/DeRegister',
+			data : dd,
+			success : RegValidationPassed
+		});
+	}
 </script>
 </head>
 <body id="feed">
@@ -135,33 +132,27 @@ function deRegisterStudent(studentId1){
 						</div>
 					</div>
 					<br>
-					<div id="searchButton" class="ui primary right floated submit animated button">
-							<div class="visible content">Search</div>
-							<div class="hidden content">
-								<i class="inverted search icon"></i>
-							</div>
+					<div id="searchButton"
+						class="ui primary right floated submit animated button">
+						<div class="visible content">Search</div>
+						<div class="hidden content">
+							<i class="inverted search icon"></i>
 						</div>
-<!-- 					<div class="four wide field"> -->
-<!-- 						<br> -->
-<!-- 						<div id="searchButton" class="ui primary right floated animated button"> -->
-<!-- 							<div class="visible content">Search</div> -->
-<!-- 							<div class="hidden content"> -->
-<!-- 								<i class="inverted search icon"></i> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					</div>
+					<!-- 					<div class="four wide field"> -->
+					<!-- 						<br> -->
+					<!-- 						<div id="searchButton" class="ui primary right floated animated button"> -->
+					<!-- 							<div class="visible content">Search</div> -->
+					<!-- 							<div class="hidden content"> -->
+					<!-- 								<i class="inverted search icon"></i> -->
+					<!-- 							</div> -->
+					<!-- 						</div> -->
+					<!-- 					</div> -->
 				</div>
 
 
 			</div>
-
-
-			<div id="ajaxRegDetails">
-				
-			</div>
-
-
-
+			<div id="ajaxRegDetails"></div>
 		</div>
 		<div class="two wide column"></div>
 	</div>

@@ -9,19 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="author" content="Dipam Changede">
+<meta name="contact" content="dipamchang@gmail.com">
 
-<!-- Site Properities -->
 <title>Admin Panel - Upload/Download</title>
 
-<!--   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" type="text/css"
 	href="/arc/STATIC_ASSETS/dist/semantic.min.css">
 <script src="/arc/STATIC_ASSETS/jquery-2.1.3.min.js"></script>
-<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script> -->
 <script src="/arc/STATIC_ASSETS/dist/semantic.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css"	href="STATIC_ASSETS/dist/feed.css"> -->
 <script src="/arc/STATIC_ASSETS/dist/feed.js"></script>
-<!-- <script src="STATIC_ASSETS/mandrill.js"></script> -->
 <script src="/arc/STATIC_ASSETS/main1.js"></script>
 
 </head>
@@ -35,17 +32,23 @@
 				<i class="content icon"></i> Menu
 			</h2>
 			<div class="ui vertical pointing menu">
-				<a class=" blue item" href="/arc/admin_panel/general.jsp"> <i class="home icon"></i> General Settings</a> 
-				<a class=" blue item" href="/arc/admin_panel/capacity.jsp"> <i class="mail icon" ></i>Capacity Details</a> 
-				<a class=" blue item" href="/arc/admin_panel/regDetails.jsp"> <i class="user icon" ></i>Registration Details</a>
-				<a class="active blue item" href="/arc/admin_panel/uploadDownload.jsp"> <i class="user icon" ></i>Upload-Download</a>
+				<a class=" blue item" href="/arc/admin_panel/general.jsp"> <i
+					class="home icon"></i> General Settings
+				</a> <a class=" blue item" href="/arc/admin_panel/capacity.jsp"> <i
+					class="mail icon"></i>Capacity Details
+				</a> <a class=" blue item" href="/arc/admin_panel/regDetails.jsp"> <i
+					class="user icon"></i>Registration Details
+				</a> <a class="active blue item"
+					href="/arc/admin_panel/uploadDownload.jsp"> <i
+					class="user icon"></i>Upload-Download
+				</a>
 			</div>
 		</div>
 		<div class="nine wide right column">
 			<!-- 			<div id="loader" class="ui active inverted dimmer"> -->
 			<!-- 				<div class="ui text loader">Loading</div> -->
 			<!-- 			</div> -->
-			<h1  class="ui dividing header">Upload - Download Menu</h1>
+			<h1 class="ui dividing header">Upload - Download Menu</h1>
 			<div id="downloadSegment" class="ui segment" id="generalSettings">
 				<h3 class="ui dividing header">Download Registration Data</h3>
 				<div class="row">
@@ -55,31 +58,32 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div id="uploadSegment" class="ui segment" id="generalSettings">
 				<h3 class="ui dividing header">Upload Student Data</h3>
 				<div class="row">
 					<div class="column">
-						<p>Student data should be in <b>.xls format</b>, with 2 columns first of student id and second of Student name.</p>
-						<p>Generating passwords will erase any previous student data. </p>
-						<form action="/arc/DownloadData" method="post" enctype="multipart/form-data">
-							Select Student Data File to Upload  :   <input type="file" name="fileName">
-								<br>
-							<input type="submit" value="Upload">
+						<p>
+							Student data should be in <b>.xls format</b>, with 2 columns
+							first of student id and second of Student name.
+						</p>
+						<p>Generating passwords will erase any previous student data.
+						</p>
+						<form action="/arc/DownloadData" method="post"
+							enctype="multipart/form-data">
+							Select Student Data File to Upload : <input type="file"
+								name="fileName"> <br> <input type="submit"
+								value="Upload">
 						</form>
 					</div>
 					<div id="result">
-            			<h3>${requestScope["message"]}</h3>
-        			</div>
-        			<div id="passDown">
-            			<h3>${requestScope["passlink"]}</h3>
-        			</div>
+						<h3>${requestScope["message"]}</h3>
+					</div>
+					<div id="passDown">
+						<h3>${requestScope["passlink"]}</h3>
+					</div>
 				</div>
 			</div>
-			
-			
-			
-			
 		</div>
 		<div class="two wide column"></div>
 	</div>

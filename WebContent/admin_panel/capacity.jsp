@@ -9,19 +9,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="author" content="Dipam Changede">
+<meta name="contact" content="dipamchang@gmail.com">
 
-<!-- Site Properities -->
 <title>Admin Panel - Capacity Details</title>
-
-<!--   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" type="text/css"
 	href="/arc/STATIC_ASSETS/dist/semantic.min.css">
 <script src="/arc/STATIC_ASSETS/jquery-2.1.3.min.js"></script>
-<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script> -->
 <script src="/arc/STATIC_ASSETS/dist/semantic.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css"	href="STATIC_ASSETS/dist/feed.css"> -->
 <script src="/arc/STATIC_ASSETS/dist/feed.js"></script>
-<!-- <script src="STATIC_ASSETS/mandrill.js"></script> -->
 <script src="/arc/STATIC_ASSETS/main1.js"></script>
 
 </head>
@@ -54,8 +50,9 @@
 				Details</h1>
 
 			<div class="ui top attached tabular menu">
-				<a class="active blue item" onclick="getCombinationDataEG();"data-tab="first">EG</a> 
-				<a class="blue item" onclick="getCombinationDataWS();" data-tab="second">Workshop</a>
+				<a class="active blue item" onclick="getCombinationDataEG();"
+					data-tab="first">EG</a> <a class="blue item"
+					onclick="getCombinationDataWS();" data-tab="second">Workshop</a>
 			</div>
 
 			<div class="ui active tab segment" data-tab="first">
@@ -65,26 +62,23 @@
 				</div>
 
 				<div id="EGCombData"></div>
-		
+
 			</div>
 			<div class="ui tab segment" data-tab="second">
-			
-			<div id="combDataLoader1" class="ui active inverted dimmer">
+
+				<div id="combDataLoader1" class="ui active inverted dimmer">
 					<div class="ui text loader">Loading</div>
 				</div>
 
 
 				<div id="WSCombData"></div>
-			
+
 			</div>
 		</div>
 		<div class="two wide column"></div>
 	</div>
 </body>
 <script type="text/javascript">
-	
 	getCombinationDataEG();
-	
-
 </script>
 </html>

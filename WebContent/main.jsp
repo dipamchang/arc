@@ -32,8 +32,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="author" content="Dipam Changede">
+<meta name="contact" content="dipamchang@gmail.com">
 
-<!-- Site Properities -->
 <title>Select Combination</title>
 <link rel="stylesheet" type="text/css"
 	href="STATIC_ASSETS/dist/semantic.min.css">
