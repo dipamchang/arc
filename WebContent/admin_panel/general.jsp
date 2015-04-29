@@ -23,6 +23,55 @@
 <script src="/arc/STATIC_ASSETS/dist/feed.js"></script>
 <!-- <script src="STATIC_ASSETS/mandrill.js"></script> -->
 <script src="/arc/STATIC_ASSETS/main.js"></script>
+<script>
+	$(document).ready(function(){
+$('#generalSettings')
+.form({
+	wsgroup: {
+		identifier  : 'wsgroup',
+		rules: [
+		        {
+		        	type   : 'empty',
+		        	prompt : 'Please enter WS group branches'
+		        }
+		        ]
+	},
+	eggroup: {
+		identifier  : 'eggroup',
+		rules: [
+		        {
+		        	type   : 'empty',
+		        	prompt : 'Please enter EG group branches'
+		        }
+		        ]
+	}
+}, {
+	inline : true,
+	on     : 'blur',
+	transition : 'fade down',
+	onSuccess : GeneralValPassed
+})
+;
+});
+
+	function RegGetFieldValue(fieldId) { 
+	    // 'get field' is part of Semantics form behavior API
+	    return $('#generalSettings').form('get field', fieldId).val().trim();
+	 }
+	function GeneralValPassed(){
+		alert("sadfsdfs");
+		 var formData1 = {
+				 egbranches : RegGetFieldValue('eggroup'), wsbranches : RegGetFieldValue('wsgroup') 
+		      };
+		 $.ajax({ type: 'POST', url: '/arc/GroupBranch', data: formData1, success: function(response){
+			 $('#responseMessage').html(response);
+		 } });
+	}	
+	
+	
+	
+</script>
+
 
 </head>
 <body id="feed">
@@ -48,24 +97,24 @@
 			<h1 id="menuHeader" class="ui dividing header">General Settings</h1>
 			<div class="ui form segment" id="generalSettings">
 				<p>Configure the general settings for the registration.</p>
-				<div class="two fields">
-					<div class="field">
-						<label>Academic Year</label> <input placeholder="eg - 2015-2016"
-							name="academicYear" type="text" value="">
-					</div>
-					<div class="field">
-						<label>Semester</label>
-						<div class="ui selection dropdown">
-							<input type="hidden" name="semester">
-							<div class="default text">Choose Semester</div>
-							<i class="dropdown icon"></i>
-							<div class="menu">
-								<div class="item" data-value="1">Semester 1</div>
-								<div class="item" data-value="2">Semester 2</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<!-- 				<div class="two fields"> -->
+<!-- 					<div class="field"> -->
+<!-- 						<label>Academic Year</label> <input placeholder="eg - 2015-2016" -->
+<!-- 							name="academicYear" type="text" value=""> -->
+<!-- 					</div> -->
+<!-- 					<div class="field"> -->
+<!-- 						<label>Semester</label> -->
+<!-- 						<div class="ui selection dropdown"> -->
+<!-- 							<input type="hidden" name="semester"> -->
+<!-- 							<div class="default text">Choose Semester</div> -->
+<!-- 							<i class="dropdown icon"></i> -->
+<!-- 							<div class="menu"> -->
+<!-- 								<div class="item" data-value="1">Semester 1</div> -->
+<!-- 								<div class="item" data-value="2">Semester 2</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<div class="two fields">
 					<div class="field">
 						<label>Workshop Group</label> <input
@@ -80,6 +129,7 @@
 				</div>
 				<div class="ui green right floated submit button" id="nextBtn">Save</div>
 			</div>
+			<div id="responseMessage"></div>
 		</div>
 		<div class="two wide column"></div>
 	</div>
